@@ -15,6 +15,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "LSParanoid"
+rootProject.name = "LSParanoid_Wrapper"
 
 include(":core", ":processor", ":gradle-plugin")

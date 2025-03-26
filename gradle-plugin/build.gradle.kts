@@ -65,27 +65,28 @@ idea {
     }
 }
 
-publish {
-    githubRepo = "LSPosed/LSParanoid"
-    publishPlugin("$group", rootProject.name, "org.lsposed.lsparanoid.plugin.LSParanoidPlugin") {
-        name = rootProject.name
-        description = "String obfuscator for Android applications"
-        url = "https://github.com/LSPosed/LSParanoid"
-        licenses {
-            license {
-                name = "Apache License 2.0"
-                url = "https://github.com/LSPosed/LSParanoid/blob/master/LICENSE.txt"
+publishing {
+    repositories {
+        maven {
+            name = "LSParanoid_Wrapper"
+            url = uri("https://maven.pkg.github.com/HosseinZamaniBakhtiarvand/LSParanoid_Wrapper")
+            credentials {
+                username = project.findProperty("github.username").toString()
+                password = project.findProperty("github.token").toString()
             }
         }
-        developers {
-            developer {
-                name = "LSPosed"
-                url = "https://lsposed.org"
-            }
-        }
-        scm {
-            connection = "scm:git:https://github.com/LSPosed/LSParanoid.git"
-            url = "https://github.com/LSPosed/LSParanoid"
+    }
+}
+
+gradlePlugin {
+    plugins {
+        create(rootProject.name) {
+            val localArtifactId = project.name
+            val localGroupId = group
+            id = "$localGroupId.$localArtifactId"
+            implementationClass = "org.lsposed.lsparanoid.plugin.LSParanoidPlugin"
+
+            description = "String obfuscator for Android applications, clone of https://github.com/LSPosed/LSParanoid"
         }
     }
 }
